@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,9 +13,12 @@ import javax.swing.*;
  */
 public class GUIDemo extends JFrame
 {
+    private Color[] colors = {Color.green, Color.blue, Color.cyan, Color.green, Color.yellow, Color.red, Color.orange, Color.pink, Color.black};
+    private int colorPicker = 0;
     private JPanel panel;
     private JButton biggerButton;
     private JButton smallerButton;
+    private JButton colorButton;
 
     /**
      * Set up the application.
@@ -27,11 +31,14 @@ public class GUIDemo extends JFrame
         panel = new JPanel();
         biggerButton = new JButton("BIGGER");
         smallerButton = new JButton("SMALLER");
+        colorButton = new JButton("CHANGE COLOR");
         biggerButton.addActionListener(new ButtonHandler());
         smallerButton.addActionListener(new ButtonHandler());
+	colorButton.addActionListener(new ButtonHandler());
         add(panel);
         panel.add(biggerButton);
         panel.add(smallerButton);
+        panel.add(colorButton);
         setVisible(true);
     }
 
@@ -53,6 +60,15 @@ public class GUIDemo extends JFrame
             {
                 setSize(size.width + 10, size.height + 10);
             }
+ 	    else if (e.getSource().equals(colorButton))
+            {
+		panel.setBackground(colors[colorPicker]);
+		colorPicker += 1;
+		if (colorPicker >= colors.length) 
+		{
+		    colorPicker = 0;
+		}
+	    }
             else
             {
                 setSize(size.width - 10, size.height - 10);
